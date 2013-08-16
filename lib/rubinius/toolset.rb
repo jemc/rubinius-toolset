@@ -16,6 +16,7 @@ module Rubinius
 
     def self.finish(name)
       ts = current::TS
+      ts.const_set :ToolSet, ts
       map[name] = ts
       const_set name.capitalize.to_sym, ts
     end
