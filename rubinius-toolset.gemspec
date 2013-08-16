@@ -1,5 +1,5 @@
 # coding: utf-8
-require 'rubinius/toolset/version'
+require './lib/rubinius/toolset/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "rubinius-toolset"
