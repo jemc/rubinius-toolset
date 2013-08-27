@@ -18,7 +18,7 @@ module Rubinius
       ts = current::TS
       ts.const_set :ToolSet, ts
       map[name] = ts
-      const_set name.capitalize.to_sym, ts
+      const_set name.to_s.capitalize.to_sym, ts
     end
 
     def self.get(name)
