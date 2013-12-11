@@ -1,6 +1,11 @@
 # Rubinius::Toolset
 
-TODO: Write a gem description
+Rubinius::ToolSet provides a registry for code tools. These include
+the Rubinius bytecode compiler and parser. These, in turn, depend on
+other components like the AST and bytecode emitter and serializer.
+
+ToolSets provide a mechanism for other languages to reuse as much of
+the Rubinius code tools as are suitable for that language.
 
 ## Installation
 
