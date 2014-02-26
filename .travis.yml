@@ -1,0 +1,6 @@
+language: ruby
+  - RUBYLIB=.
+script: mspec -r spec/spec_helper spec
+rvm:
+  - 2.1.0
+  - rbx-2
