@@ -20,3 +20,11 @@ describe "Rubinius::ToolSet.finish" do
     Rubinius::ToolSet::Name.should be_an_instance_of(Module)
   end
 end
+
+describe "Rubinius::ToolSet.create" do
+  it "it resets $LOADED_FEATURES while running the block" do
+    Rubinius::ToolSet.create do
+      $LOADED_FEATURES.should == []
+    end
+  end
+end
