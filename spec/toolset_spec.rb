@@ -27,4 +27,23 @@ describe "Rubinius::ToolSet.create" do
       $LOADED_FEATURES.should == []
     end
   end
+
+  it "yields an anonymous Module to the block if no name is given" do
+    Rubinius::ToolSet.create do |m|
+      m.should be_an_instance_of(Module)
+      m.name.should be_nil
+    end
+  end
+
+  it "sets .current to the module that is yielded to the block" do
+    Rubinius::ToolSet.create do |m|
+      m.should equal(Rubinius::ToolSet.current)
+    end
+  end
+
+  it "accepts an optional name for the toolset module" do
+    Rubinius::ToolSet.create :a_tool_set do |m|
+      m.name.should == "Rubinius::ToolSet::AToolSet"
+    end
+  end
 end
