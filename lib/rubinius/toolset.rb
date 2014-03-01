@@ -40,6 +40,7 @@ module Rubinius
       const_set name, current
 
       current.const_set :TS, current
+      current::TS.const_set :ToolSet, current
     end
 
     # Create a new toolset, optionally with a name. The module enclosing the
