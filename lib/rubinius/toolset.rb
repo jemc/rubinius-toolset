@@ -38,6 +38,8 @@ module Rubinius
 
       name = name.to_s.split("_").map { |x| x.capitalize }.join
       const_set name, current
+
+      current.const_set :TS, current
     end
 
     # Create a new toolset, optionally with a name. The module enclosing the

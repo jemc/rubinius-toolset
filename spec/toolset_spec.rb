@@ -46,4 +46,11 @@ describe "Rubinius::ToolSet.create" do
       m.name.should == "Rubinius::ToolSet::AToolSet"
     end
   end
+
+  it "creates a temporary module named 'TS' on the current toolset module" do
+    Rubinius::ToolSet.create :spec do |m|
+      m.should equal(m::TS)
+      m::TS.name.should == "Rubinius::ToolSet::Spec"
+    end
+  end
 end
