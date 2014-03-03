@@ -1,8 +1,9 @@
 language: ruby
 env:
-  - RUBYLIB=.
+  - RUBYLIB=lib:.
 script: mspec -r spec/spec_helper spec
 rvm:
   - 1.8.7
   - 2.1.0
+  - 2.1.1
   - rbx-2
