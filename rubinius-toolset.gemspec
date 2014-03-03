@@ -3,7 +3,7 @@ require './lib/rubinius/toolset/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "rubinius-toolset"
-  spec.version       = Rubinius::Toolset::VERSION
+  spec.version       = Rubinius::ToolSets::VERSION
   spec.authors       = ["Brian Shirai"]
   spec.email         = ["brixen@gmail.com"]
   spec.description   = <<-EOD
