@@ -1,41 +1,51 @@
-describe "Rubinius::ToolSets.current" do
-  it "returns a Module" do
-    Rubinius::ToolSets.create do
-      Rubinius::ToolSets.current.should be_an_instance_of(Module)
+describe "Rubinius::ToolSets.create" do
+  it "creates a new ToolSet" do
+    m = Rubinius::ToolSets.current
+    Rubinius::ToolSets.create.should_not equal(m)
+  end
+
+  it "accepts an optional name for the ToolSet" do
+    ts = Rubinius::ToolSets.create :a_tool_set
+    ts.name.should == "Rubinius::ToolSets::AToolSet"
+  end
+
+  it "returns an anonymous ToolSet if no name is given" do
+    Rubinius::ToolSets.create.name.should be_nil
+  end
+
+  it "yields an anonymous ToolSet to the block if no name is given" do
+    Rubinius::ToolSets.create do |ts|
+      ts.name.should be_nil
     end
   end
-end
 
-describe "Rubinius::ToolSets.create" do
-  it "it resets $LOADED_FEATURES while running the block" do
+  it "sets .current to the ToolSet that is yielded to the block" do
+    Rubinius::ToolSets.create do |ts|
+      ts.should equal(Rubinius::ToolSets.current)
+    end
+  end
+
+  it "resets $LOADED_FEATURES while running the block" do
     Rubinius::ToolSets.create do
       $LOADED_FEATURES.should == []
     end
   end
 
-  it "yields an anonymous Module to the block if no name is given" do
-    Rubinius::ToolSets.create do |m|
-      m.should be_an_instance_of(Module)
-      m.name.should be_nil
+  it "sets the 'ToolSet' constant on the yielded ToolSet to refer to itself" do
+    Rubinius::ToolSets.create :spec do |ts|
+      ts.should equal(ts::ToolSet)
     end
   end
+end
 
-  it "sets .current to the module that is yielded to the block" do
-    Rubinius::ToolSets.create do |m|
-      m.should equal(Rubinius::ToolSets.current)
-    end
+describe "Rubinius::ToolSets.current" do
+  it "returns the ToolSet created by .create" do
+    ts = Rubinius::ToolSets.create
+    Rubinius::ToolSets.current.should equal(ts)
   end
 
-  it "accepts an optional name for the toolset module" do
-    Rubinius::ToolSets.create :a_tool_set do |m|
-      m.name.should == "Rubinius::ToolSets::AToolSet"
-    end
-  end
-
-  it "sets the 'ToolSet' constant on the yielded module to refer to itself" do
-    Rubinius::ToolSets.create :spec do |m|
-      m.should equal(m::ToolSet)
-      m::ToolSet.name.should == "Rubinius::ToolSets::Spec"
-    end
+  it "returns the same ToolSet on each call" do
+    ts = Rubinius::ToolSets.current
+    ts.should equal(Rubinius::ToolSets.current)
   end
 end
