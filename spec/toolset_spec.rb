@@ -9,16 +9,6 @@ describe "Rubinius::ToolSets.create" do
     ts.name.should == "Rubinius::ToolSets::AToolSet"
   end
 
-  it "returns an anonymous ToolSet if no name is given" do
-    Rubinius::ToolSets.create.name.should be_nil
-  end
-
-  it "yields an anonymous ToolSet to the block if no name is given" do
-    Rubinius::ToolSets.create do |ts|
-      ts.name.should be_nil
-    end
-  end
-
   it "sets .current to the ToolSet that is yielded to the block" do
     Rubinius::ToolSets.create do |ts|
       ts.should equal(Rubinius::ToolSets.current)
