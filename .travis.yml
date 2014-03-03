@@ -1,4 +1,5 @@
 language: ruby
+env:
   - RUBYLIB=.
 script: mspec -r spec/spec_helper spec
 rvm:
