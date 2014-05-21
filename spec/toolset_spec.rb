@@ -1,4 +1,14 @@
 describe "Rubinius::ToolSets.create" do
+  before :each do
+    module ::CodeTools
+      ToolSetCodeTools = 1
+    end
+  end
+
+  after :each do
+    ::Object.send :remove_const, :CodeTools rescue nil
+  end
+
   it "creates a new ToolSet" do
     m = Rubinius::ToolSets.current
     Rubinius::ToolSets.create.should_not equal(m)
@@ -25,6 +35,16 @@ describe "Rubinius::ToolSets.create" do
     Rubinius::ToolSets.create :spec do |ts|
       ts.should equal(ts::ToolSet)
     end
+  end
+
+  it "includes the ::CodeTools constant in the current ToolSet" do
+    ts = Rubinius::ToolSets.create(:spec) { |ts| ts }
+    ts.const_defined?(:ToolSetCodeTools).should be_true
+  end
+
+  it "removes the ::CodeTools constant after yielding" do
+    Rubinius::ToolSets.create(:spec) { }
+    Object.const_defined?(:ToolSetCodeTools).should be_false
   end
 end
 

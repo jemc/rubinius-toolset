@@ -19,6 +19,9 @@ module Rubinius
           $LOADED_FEATURES.clear
 
           yield @current
+
+          @current.send :include, ::CodeTools
+          ::Object.send :remove_const, :CodeTools
         ensure
           $LOADED_FEATURES.replace loaded_features
         end
