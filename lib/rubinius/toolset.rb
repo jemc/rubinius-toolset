@@ -15,7 +15,7 @@ module Rubinius
 
       if block_given?
         begin
-          loaded_features = $LOADED_FEATURES
+          loaded_features = $LOADED_FEATURES.dup
           $LOADED_FEATURES.clear
 
           yield @current
