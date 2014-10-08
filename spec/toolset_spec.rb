@@ -33,6 +33,13 @@ describe "Rubinius::ToolSets.create" do
     end
   end
 
+  it "restores the original set of $LOADED_FEATURES after running the block" do
+    $LOADED_FEATURES.should_not be_empty
+    previously_loaded_features = $LOADED_FEATURES.dup
+    Rubinius::ToolSets.create do end
+    $LOADED_FEATURES.should == previously_loaded_features
+  end
+
   it "sets the 'ToolSet' constant on the yielded ToolSet to refer to itself" do
     Rubinius::ToolSets.create :spec do |ts|
       ts.should equal(ts::ToolSet)
