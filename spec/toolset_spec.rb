@@ -1,3 +1,5 @@
+require_relative 'spec_helper'
+
 describe "Rubinius::ToolSets.create" do
   before :each do
     module ::CodeTools
